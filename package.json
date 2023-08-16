@@ -3,12 +3,20 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "cross-env": "^7.0.2",
+  "history": "^5.0.0",
+  "json-server": "^0.16.1",
+  "npm-run-all": "^4.1.5",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "start": "run-p start-app start-api",
+    "start-app": "cross-env REACT_APP_API_BASE_URL=http://localhost:3001/ react-scripts start",
+    "start-api": "json-server --port 3001 --watch db.json --delay 0",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

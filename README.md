@@ -1,27 +1,29 @@
-# React + TypeScript + Vite
+## Quick Start
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Run the following commands:
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```
+npm install
+npm start
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+This will install dependencies, then start the app and mock API.
+
+## Starter Project Overview
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+I made the following enhancements:
+
+1. Added a mock API using [json-server](https://github.com/typicode/json-server). Configured `npm start` to run the app and mock API at the same time using [npm-run-all](https://www.npmjs.com/package/npm-run-all). See [Building Applications with React and Flux](https://app.pluralsight.com/library/courses/react-flux-building-applications/table-of-contents) for details on how to set this up from scratch.
+1. Installed [react-router-dom](https://www.npmjs.com/package/react-router-dom), [history](https://www.npmjs.com/package/history) (React Router peer dependency), and [cross-env](https://www.npmjs.com/search?q=cross-env) for declaring environment variables.
+1. Added some React components to help us get started: Header, Footer, Spinner
+1. Added styles to App.css
+1. Added `/public/images`.
+1. Added data fetching functions in `/src/services`.
+1. Added db.json to root as json-server's mock database
+1. Overwrote App.css with custom styles
+1. Simplified index.js (removed service worker)
+1. Deleted from src: index.css, logo.svg, serviceWorker.js, App.test.js
+1. Deleted from public: logo files, manifest.json, robots.txt
+1. Customized App.js and renamed to App.jsx
