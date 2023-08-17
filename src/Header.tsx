@@ -1,4 +1,8 @@
+import { Link, NavLink } from "react-router-dom";
 
+const activeStyle = {
+    color: "purple"
+}
 
 const Header = () => {
     return (
@@ -7,7 +11,22 @@ const Header = () => {
                 <nav>
                     <ul>
                         <li>
-                            <img alt="Carved Rock Fitness" src="/images/logo.png" />
+                            <Link to={"/"}>
+
+                                <img alt="Carved Rock Fitness" src="/images/logo.png" />
+                            </Link>
+                        </li>
+                        <li>
+                            <NavLink to={"/shoes"} style={activeStyle}>
+
+                                Shoes
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={"/cart"} style={activeStyle}>
+
+                                Cart
+                            </NavLink>
                         </li>
                     </ul>
                 </nav>

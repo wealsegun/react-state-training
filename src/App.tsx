@@ -1,29 +1,26 @@
 
-import { useState } from 'react'
 import './App.css'
 import Footer from './Footer'
 import Header from './Header'
+import Products from './Product'
+import { Routes, Route } from "react-router-dom";
+import ProductDetails from './ProductDetail';
+import Cart from './Cart';
 
 function App() {
-  const [size, setSize] = useState("");
+
 
   return (
     <>
       <div className="content">
         <Header />
         <main>
-          <section id="filters">
-            <label htmlFor="size">Filter by Size:</label>{" "}
-            <select id="size">
-              <option value="">All sizes</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-            </select>
-          </section>
-          <section id="product">
-
-          </section>
+          <Routes>
+            <Route path='/' element={<><h1>Welcome to Carved Rock Fitness</h1></>} />
+            <Route path='/:category' element={<Products />} />
+            <Route path='/:category/:id' element={<ProductDetails />} />
+            <Route path='/cart' element={<Cart />} />
+          </Routes>
         </main>
       </div>
       <Footer />
