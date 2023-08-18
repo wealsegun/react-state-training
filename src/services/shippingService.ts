@@ -1,4 +1,5 @@
-const baseUrl = process.env.REACT_APP_API_BASE_URL;
+// const baseUrl = process.env.REACT_APP_API_BASE_URL;
+const baseUrl: any = "http://localhost:3000/";
 
 export async function getShippingAddress(userId: string) {
   return fetch(baseUrl + "shippingAddress/" + userId).then((response) => {

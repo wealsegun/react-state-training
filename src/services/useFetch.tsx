@@ -14,6 +14,7 @@ const useFetch = (url: any) => {
                     const json = await response.json();
                     setData(json);
                 } else {
+                    console.log(response)
                     throw response;
                 }
             } catch (error: any) {
