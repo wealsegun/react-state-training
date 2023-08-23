@@ -1,20 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
 import useFetchAll from "./useFetchAll";
+import { useCart } from "./services/contexts/cartContext";
 
 
 
-const Cart = ({ cart, updateQuantity }) => {
+const Cart = () => {
+    const { cart, dispatch } = useCart();
     const urls = cart.map((i: any) => `products/${i.id}`);
     const navigate = useNavigate();
-    console.log(urls)
     const { data, loading, error } = useFetchAll(urls);
+
     const products: any = data;
 
     function renderItem(itemInCart: any) {
+        console.log(itemInCart)
         const { id, sku, quantity } = itemInCart;
 
-        console.log(id, sku, quantity)
         const { price, name, image, skus } = products.find(
             (p: any) => p.id === parseInt(id)
         );
@@ -33,7 +35,7 @@ const Cart = ({ cart, updateQuantity }) => {
                     <p>
                         <select
                             aria-label={`Select quantity for ${name} size ${size}`}
-                            onChange={(e) => updateQuantity(sku, parseInt(e.target.value))}
+                            onChange={(e) => dispatch({ type: "updateQuantity", sku, quantity: parseInt(e.target.value) })}
                             value={quantity}
                         >
                             <option value="0">Remove</option>
@@ -49,8 +51,6 @@ const Cart = ({ cart, updateQuantity }) => {
         );
     }
 
-
-
     if (loading) return <Spinner />;
     if (error) throw error;
     const numItemsInCart = cart.reduce((total: any, item: any) => total + item.quantity, 0);
@@ -63,7 +63,14 @@ const Cart = ({ cart, updateQuantity }) => {
                     : `${numItemsInCart} Item${numItemsInCart > 1 ? "s" : ""} in My Cart`}
             </h1>
             <ul>{cart.map(renderItem)}</ul>
-            <button className="btn btn-primary" onClick={() => navigate('/checkout')}>Checkout</button>
+            {cart.length > 0 && (
+                <button
+                    className="btn btn-primary"
+                    onClick={() => navigate("/checkout")}
+                >
+                    Checkout
+                </button>
+            )}
         </section>
     );
 }

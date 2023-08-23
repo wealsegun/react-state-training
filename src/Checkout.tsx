@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { saveShippingAddress } from "./services/shippingService";
+import { useCart } from "./services/contexts/cartContext";
 
 
 // Declaring outside component to avoid recreation on each render
@@ -7,6 +8,10 @@ const emptyAddress = {
     city: "",
     country: "",
 };
+const initTouched = {
+    city: "",
+    country: ""
+}
 
 const STATUS = {
     IDLE: "IDLE",
@@ -15,11 +20,12 @@ const STATUS = {
     COMPLETED: "COMPLETED"
 };
 
-const Checkout = ({ cart, emptyCart }) => {
+const Checkout = () => {
+    const { dispatch } = useCart();
     const [address, setAddress] = useState(emptyAddress);
     const [status, setStatus] = useState(STATUS.IDLE);
     const [saveError, setSaveError] = useState(null);
-    const [touched, setTouched] = useState({});
+    const [touched, setTouched] = useState(initTouched);
     const getErrors = (address: any) => {
         const result: any = {}
         if (!address.city) result.city = "City is required";
@@ -57,6 +63,7 @@ const Checkout = ({ cart, emptyCart }) => {
         if (isValid) {
             try {
                 saveShippingAddress(address);
+                dispatch({ type: "empty" });
                 setStatus(STATUS.COMPLETED);
 
             } catch (error: any) {

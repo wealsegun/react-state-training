@@ -2,24 +2,18 @@ import { useParams, useNavigate } from "react-router-dom";
 import useFetch from "./services/useFetch";
 import Spinner from "./Spinner";
 import PageNotFound from "./PageNotFound";
-// import { Product, Skus } from "./interfaces/product.interface";
 import { useState } from "react";
+import { useCart } from "./services/contexts/cartContext";
 
-
-const ProductDetails = ({ addToCart }) => {
-    // return (<h1>Detail</h1>);
-    const navigate = useNavigate();
+const ProductDetails = () => {
+    const { dispatch } = useCart();
     const { id } = useParams();
-    const url = `products/${id}`;
+    const navigate = useNavigate();
     const [sku, setSku] = useState("");
-    const { data, error, loading } = useFetch(url);
-    // const [skuSelected, setSkuSelected] = useState(true);
+    const { data, loading, error } = useFetch(`products/${id}`);
     const product: any = data;
-    console.log(product);
 
-
-
-    // if (error) throw error;
+    if (error) throw error;
     if (loading) return <Spinner />;
     if (error) return <PageNotFound />
     return (
@@ -40,7 +34,7 @@ const ProductDetails = ({ addToCart }) => {
             </section>
             <p>
                 <button className="btm btn-primary" disabled={!sku} onClick={() => {
-                    addToCart(product.id, sku)
+                    dispatch({ type: "add", id, sku })
                     navigate("/cart")
                 }}>Add to Cart</button>
             </p>
